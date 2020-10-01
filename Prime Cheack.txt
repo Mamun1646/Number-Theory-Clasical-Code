@@ -1,0 +1,36 @@
+This type of seive only can elaborate for prime cheack
+Time:5:54 AM 04-May-20
+Number:01 
+
+#include<bits/stdc++.h>
+using namespace std;
+#define MAX 1000000
+bool Prime[MAX];
+void seive()
+{
+    for(int i=0;i<=MAX;i++)Prime[i]=true;
+    for(int i=3;i*i<=MAX;i+=2)
+        if(Prime[i])
+        for(int j=i*i;j<=MAX;j=j+i)
+        Prime[j]=false;
+
+}
+bool primeCheack(int n)
+{
+    if(n<2) return false;
+    else if(n==2) return true;
+    else if(n%2==0) return false;
+    else return Prime[n]==true;
+
+}
+int main()
+{
+    int n;cin>>n;
+    seive();
+    if(primeCheack(n))
+        cout<<"YES";
+            else cout<<"NO";
+}
+
+
+

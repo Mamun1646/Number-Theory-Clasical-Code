@@ -1,0 +1,55 @@
+This type of seive only can elaborate for prime cheack
+Time:6:36 AM 04-May-20
+Number:03 
+
+#include<bits/stdc++.h>
+using namespace std;
+#define MAX 1000000
+bool Prime[MAX];
+vector<int>v;
+void seive(int n)
+{
+    for(int i=0;i<=MAX;i++)Prime[i]=true;
+    for(int i=3;i*i<=MAX;i+=2)
+        if(Prime[i])
+        for(int j=i*i;j<=MAX;j=j+i)
+        Prime[j]=false;
+     v.push_back(2);
+    for(int i=3;i*i<=MAX;i+=2){
+    if(Prime[i]){
+        v.push_back(i);}}
+     for(int i=0;i<n;i++)
+        cout<<v[i]<<" ";
+}
+
+void segSeive(int l,int r)
+{
+        bool isPrime[r-l+1];
+        for(int i=0;i<r-l+1;i++) isPrime[i]=true;
+        if(l==1)isPrime[0]=false;
+        for(int i=0;v[i]*v[i]<=r;i++){
+            int currentPrime=v[i];
+            int base=(l/currentPrime)*currentPrime;
+            if(base<currentPrime)base+=currentPrime;
+            for(int j=base;j<=r;j+=currentPrime){
+                isPrime[j-l]=false;
+            }
+            if(base==currentPrime)isPrime[base-l]=true;
+        }
+
+        for(int i=0;i<r-l+1;i++)
+        {
+            if(isPrime[i]) cout<<i+l<<endl;
+        }
+}
+
+
+int main()
+{
+    int n;cin>>n;
+    seive(n);
+    int l,r;cin>>l>>r;
+    segSeive(l,r);
+
+}
+
